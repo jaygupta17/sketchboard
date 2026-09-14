@@ -1,0 +1,83 @@
+{
+  "name": "@sketchpen/core",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Semantic action DSL and deterministic layout engine for AI-generated, audio-synced whiteboard lessons",
+  "author": "Jay Gupta",
+  "keywords": [
+    "ai",
+    "agents",
+    "llm",
+    "whiteboard",
+    "canvas",
+    "dsl",
+    "react",
+    "education"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/jaygupta17/sketchpen-core#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaygupta17/sketchpen-core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jaygupta17/sketchpen-core/issues"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "dist/index.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown && npm run types",
+    "dev": "tsdown --watch",
+    "test": "vitest --run --browser.enabled=false",
+    "test:watch": "vitest --browser.enabled=false",
+    "test:browser": "vitest --run --browser.enabled=true",
+    "typecheck": "tsc --noEmit",
+    "types": "tsc --emitDeclarationOnly",
+    "release": "bumpp",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "@xyflow/react": ">=12"
+  },
+  "dependencies": {
+    "katex": "^0.16.45",
+    "prismjs": "^1.30.0",
+    "roughjs": "^4.6.6",
+    "zustand": "^5.0.12"
+  },
+  "devDependencies": {
+    "@tsconfig/strictest": "^2.0.8",
+    "@types/node": "^22.0.0",
+    "@types/prismjs": "^1.26.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "@vitest/browser-playwright": "^4.1.2",
+    "bumpp": "^11.0.0",
+    "tsdown": "^0.21.0",
+    "typescript": "^5.6.0",
+    "vite": "^6.0.0",
+    "vitest": "^4.1.0",
+    "vitest-browser-react": "^2.1.0"
+  }
+}

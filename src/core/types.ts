@@ -1,0 +1,1 @@
+export type AudioEncoding = 'pcm_s16le' | 'mp3' | 'wav';
