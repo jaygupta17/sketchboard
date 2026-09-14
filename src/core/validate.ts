@@ -1,5 +1,5 @@
 import type { Action } from '../engine/types';
-import type { AudioData, Segment } from './SketchpenLive';
+import type { AudioData, Segment } from './SketchboardLive';
 
 export type ValidationErrorCode =
   | 'SCHEMA_INVALID'
@@ -13,12 +13,12 @@ export interface ValidationIssue {
   message: string;
 }
 
-export class SketchpenValidationError extends Error {
+export class SketchboardValidationError extends Error {
   readonly issues: ValidationIssue[];
 
   constructor(issues: ValidationIssue[]) {
     super(issues[0]?.message ?? 'Invalid segment payload');
-    this.name = 'SketchpenValidationError';
+    this.name = 'SketchboardValidationError';
     this.issues = issues;
   }
 }
@@ -31,7 +31,7 @@ export type RuntimeErrorCode =
   | 'RENDERER_RUNTIME_ERROR'
   | 'SYNC_DRIFT_EXCEEDED';
 
-export interface SketchpenRuntimeErrorContext {
+export interface SketchboardRuntimeErrorContext {
   code: RuntimeErrorCode;
   message: string;
   /** Optional node ID related to the error */
@@ -42,15 +42,15 @@ export interface SketchpenRuntimeErrorContext {
   cause?: unknown;
 }
 
-export class SketchpenRuntimeError extends Error {
+export class SketchboardRuntimeError extends Error {
   readonly code: RuntimeErrorCode;
   readonly nodeId?: string;
   readonly rendererKey?: string;
   readonly cause?: unknown;
 
-  constructor(ctx: SketchpenRuntimeErrorContext) {
+  constructor(ctx: SketchboardRuntimeErrorContext) {
     super(ctx.message);
-    this.name = 'SketchpenRuntimeError';
+    this.name = 'SketchboardRuntimeError';
     this.code = ctx.code;
     this.nodeId = ctx.nodeId;
     this.rendererKey = ctx.rendererKey;
@@ -59,7 +59,7 @@ export class SketchpenRuntimeError extends Error {
 }
 
 /** Union of all error types the system can produce */
-export type SketchpenError = SketchpenValidationError | SketchpenRuntimeError;
+export type SketchboardError = SketchboardValidationError | SketchboardRuntimeError;
 
 const POSITION_RE = /^(center|top-left|top-right|top-center|bottom-left|bottom-right|bottom-center|below:.+|above:.+|beside:.+|left-of:.+|right-of:.+)$/;
 

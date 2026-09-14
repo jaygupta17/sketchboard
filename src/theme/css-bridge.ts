@@ -4,7 +4,7 @@ import { lightTheme } from './default';
 // ── Three-Layer Variable Resolution ───────────────────────
 //
 // For each value, we try in order:
-//   1. --sp-* (sketchpen-specific, highest priority)
+//   1. --sp-* (sketchboard-specific, highest priority)
 //   2. Standard variable (--primary, --background, --font-sans, etc.)
 //   3. Library hardcoded default (lightTheme)
 
@@ -36,10 +36,10 @@ function resolveVarNum(spName: string, standardName: string | null, fallback: nu
 // ── Theme Builder ─────────────────────────────────────────
 
 /**
- * Create a sketchpen Theme by reading CSS custom properties from the document.
+ * Create a sketchboard Theme by reading CSS custom properties from the document.
  *
  * Variable resolution order for each property:
- *   1. `--sp-*` (sketchpen-specific)
+ *   1. `--sp-*` (sketchboard-specific)
  *   2. Standard variable (`--primary`, `--background`, etc.)
  *   3. Library default (from `lightTheme`)
  */

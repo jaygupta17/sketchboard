@@ -55,7 +55,7 @@ const commonActionProps = {
 
 export const actionJsonSchema = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'https://sketchpen.live/schema/action.json',
+  $id: 'https://github.com/jaygupta17/sketchboard/schema/action.json',
   type: 'object',
   oneOf: [
     {
@@ -147,7 +147,7 @@ export const actionJsonSchema = {
 
 export const segmentJsonSchema = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'https://sketchpen.live/schema/segment.json',
+  $id: 'https://github.com/jaygupta17/sketchboard/schema/segment.json',
   type: 'object',
   additionalProperties: false,
   required: ['audio', 'actions'],

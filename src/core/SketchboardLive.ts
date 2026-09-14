@@ -3,7 +3,7 @@ import type { AudioProgress } from '../engine/types';
 import { AudioPlayer } from './audio-player';
 import type { AudioEncoding } from './types';
 import { buildActionSchedule } from './timeline-scheduler';
-import { SketchpenValidationError, SketchpenRuntimeError, validateSegment } from './validate';
+import { SketchboardValidationError, SketchboardRuntimeError, validateSegment } from './validate';
 
 export interface AudioData {
   data: string;
@@ -17,29 +17,29 @@ export interface Segment {
   actions: Action[];
 }
 
-export interface SketchpenOptions {
+export interface SketchboardOptions {
   fraction?: number;
   audioSampleRate?: number;
   onActionExecute?: (action: Action, duration: number) => void;
-  onStateChange?: (state: SketchpenState) => void;
+  onStateChange?: (state: SketchboardState) => void;
   onAudioProgress?: (progress: AudioProgress) => void;
   onError?: (error: Error) => void;
 }
 
-export interface SketchpenState {
+export interface SketchboardState {
   isPlaying: boolean;
   isSpeaking: boolean;
   isAnimating: boolean;
 }
 
-export class SketchpenLive {
+export class SketchboardLive {
   private fraction: number;
   private audioPlayer: AudioPlayer;
-  private onStateChange?: (state: SketchpenState) => void;
+  private onStateChange?: (state: SketchboardState) => void;
   private onActionExecute?: (action: Action, duration: number) => void;
   private onAudioProgress?: (progress: AudioProgress) => void;
   private onError?: (error: Error) => void;
-  private state: SketchpenState = {
+  private state: SketchboardState = {
     isPlaying: false,
     isSpeaking: false,
     isAnimating: false,
@@ -47,7 +47,7 @@ export class SketchpenLive {
   private scheduledTimers: ReturnType<typeof setTimeout>[] = [];
   private currentSessionId = 0;
 
-  constructor(options: SketchpenOptions = {}) {
+  constructor(options: SketchboardOptions = {}) {
     this.fraction = options.fraction ?? 0.5;
     this.onStateChange = options.onStateChange;
     this.onActionExecute = options.onActionExecute;
@@ -56,7 +56,7 @@ export class SketchpenLive {
     this.audioPlayer = new AudioPlayer(options.audioSampleRate ?? 24000);
   }
 
-  private setState(updates: Partial<SketchpenState>) {
+  private setState(updates: Partial<SketchboardState>) {
     this.state = { ...this.state, ...updates };
     this.onStateChange?.(this.state);
   }
@@ -74,7 +74,7 @@ export class SketchpenLive {
 
     const issues = validateSegment(segment);
     if (issues.length > 0) {
-      const error = new SketchpenValidationError(issues);
+      const error = new SketchboardValidationError(issues);
       this.onError?.(error);
       throw error;
     }
@@ -139,7 +139,7 @@ export class SketchpenLive {
 
       // Wrap audio decode errors in structured error
       if (e instanceof Error && e.message.includes('decode')) {
-        const wrapped = new SketchpenRuntimeError({
+        const wrapped = new SketchboardRuntimeError({
           code: 'AUDIO_DECODE_FAILED',
           message: e.message,
           cause: e,
@@ -167,7 +167,7 @@ export class SketchpenLive {
     this.setState({ isPlaying: false, isSpeaking: false, isAnimating: false });
   }
 
-  getState(): SketchpenState {
+  getState(): SketchboardState {
     return { ...this.state };
   }
 

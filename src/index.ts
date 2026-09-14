@@ -1,10 +1,10 @@
-// @sketchpen/core - Main entry point
+// sketchboard - Main entry point
 
 // Core exports
-export { SketchpenLive } from './core/SketchpenLive';
+export { SketchboardLive } from './core/SketchboardLive';
 export type {
-  SketchpenOptions,
-  SketchpenState,
+  SketchboardOptions,
+  SketchboardState,
   Segment,
   AudioData,
   AudioEncoding,
@@ -12,20 +12,20 @@ export type {
 export {
   buildActionSchedule,
   validateSegment,
-  SketchpenValidationError,
-  SketchpenRuntimeError,
+  SketchboardValidationError,
+  SketchboardRuntimeError,
 } from './core';
 export type {
   ScheduledAction,
   ValidationIssue,
   ValidationErrorCode,
   RuntimeErrorCode,
-  SketchpenRuntimeErrorContext,
-  SketchpenError,
+  SketchboardRuntimeErrorContext,
+  SketchboardError,
 } from './core';
 
 // React exports
-export { SketchpenProvider, useSketchpenLive } from './react';
+export { SketchboardProvider, useSketchboardLive } from './react';
 export type { UseRevealOptions } from './renderer/reveal/useReveal';
 
 // Engine exports
@@ -48,7 +48,7 @@ export type { Action, CustomAction, RendererComponent, Renderers, Theme, ManualR
 // Theme exports
 export { lightTheme, darkTheme, createTheme, getTheme } from './theme';
 export { themeFromCssVars, hasCssVarTheme } from './theme/css-bridge';
-export type { Theme as SketchpenTheme, ThemeId, ThemeColors, ThemeFonts, ThemeFontSize, ThemeSpacing, ThemeRadius, ThemeCanvas, ThemeRough, ThemeAnimation } from './theme';
+export type { Theme as SketchboardTheme, ThemeId, ThemeColors, ThemeFonts, ThemeFontSize, ThemeSpacing, ThemeRadius, ThemeCanvas, ThemeRough, ThemeAnimation } from './theme';
 
 // JSON schema exports (for agent/tooling integration)
 export { actionJsonSchema, segmentJsonSchema } from './schema';

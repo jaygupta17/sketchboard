@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useRef, useCallback, useEffect, ReactNode } from 'react';
-import { SketchpenLive, type Segment } from '../core';
+import { SketchboardLive, type Segment } from '../core';
 import { ActionExecutor } from '../engine/action-executor';
 import { useCanvasStore } from '../store/canvas-store';
 import type { Action, AudioProgress } from '../engine/types';
@@ -7,7 +7,7 @@ import type { Renderers } from '../actions';
 import type { Theme } from '../theme';
 import { themeFromCssVars } from '../theme/css-bridge';
 
-interface SketchpenContextValue {
+interface SketchboardContextValue {
   play: (segment: Segment) => Promise<void>;
   playActions: (actions: Action[], durationMs?: number) => Promise<void>;
   pause: () => void;
@@ -28,9 +28,9 @@ interface SketchpenContextValue {
   skipReveal: () => void;
 }
 
-const SketchpenContext = createContext<SketchpenContextValue | null>(null);
+const SketchboardContext = createContext<SketchboardContextValue | null>(null);
 
-interface SketchpenProviderProps {
+interface SketchboardProviderProps {
   children: ReactNode;
   fraction?: number;
   audioSampleRate?: number;
@@ -42,7 +42,7 @@ interface SketchpenProviderProps {
   onError?: (error: Error) => void;
 }
 
-export function SketchpenProvider({ children, fraction = 0.5, audioSampleRate = 24000, renderers, theme, autoTheme = false, onError }: SketchpenProviderProps) {
+export function SketchboardProvider({ children, fraction = 0.5, audioSampleRate = 24000, renderers, theme, autoTheme = false, onError }: SketchboardProviderProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -50,7 +50,7 @@ export function SketchpenProvider({ children, fraction = 0.5, audioSampleRate = 
   
   const executorRef = useRef(new ActionExecutor());
   const setRenderers = useCanvasStore((s) => s.setRenderers);
-  const [sketchpenInstance] = useState(() => new SketchpenLive({
+  const [sketchboardInstance] = useState(() => new SketchboardLive({
     fraction,
     audioSampleRate,
     onStateChange: (state) => {
@@ -94,8 +94,8 @@ export function SketchpenProvider({ children, fraction = 0.5, audioSampleRate = 
   }, [theme, autoTheme, setTheme]);
 
   const play = useCallback(async (segment: Segment) => {
-    await sketchpenInstance.play(segment);
-  }, [sketchpenInstance]);
+    await sketchboardInstance.play(segment);
+  }, [sketchboardInstance]);
 
   // Play multiple actions at once (for lesson sequences)
   const playActions = useCallback(async (actions: Action[], durationMs: number = 3000) => {
@@ -108,20 +108,20 @@ export function SketchpenProvider({ children, fraction = 0.5, audioSampleRate = 
       actions
     };
     
-    await sketchpenInstance.play(segment);
-  }, [sketchpenInstance]);
+    await sketchboardInstance.play(segment);
+  }, [sketchboardInstance]);
 
   const pause = useCallback(() => {
-    sketchpenInstance.pause();
-  }, [sketchpenInstance]);
+    sketchboardInstance.pause();
+  }, [sketchboardInstance]);
 
   const stop = useCallback(() => {
-    sketchpenInstance.stop();
-  }, [sketchpenInstance]);
+    sketchboardInstance.stop();
+  }, [sketchboardInstance]);
 
   const resume = useCallback(() => {
-    sketchpenInstance.resume();
-  }, [sketchpenInstance]);
+    sketchboardInstance.resume();
+  }, [sketchboardInstance]);
 
   const executeAction = useCallback((action: Action, duration?: number) => {
     const node = executorRef.current.execute(action, duration ?? 1000);
@@ -152,7 +152,7 @@ export function SketchpenProvider({ children, fraction = 0.5, audioSampleRate = 
     }
   }, []);
 
-  const value: SketchpenContextValue = {
+  const value: SketchboardContextValue = {
     play,
     playActions,
     pause,
@@ -169,9 +169,9 @@ export function SketchpenProvider({ children, fraction = 0.5, audioSampleRate = 
   };
 
   return (
-    <SketchpenContext.Provider value={value}>
+    <SketchboardContext.Provider value={value}>
       {children}
-    </SketchpenContext.Provider>
+    </SketchboardContext.Provider>
   );
 }
 
@@ -194,10 +194,10 @@ function generateMockPCM(durationMs: number): string {
   return btoa(binary);
 }
 
-export function useSketchpenLive(): SketchpenContextValue {
-  const context = useContext(SketchpenContext);
+export function useSketchboardLive(): SketchboardContextValue {
+  const context = useContext(SketchboardContext);
   if (!context) {
-    throw new Error('useSketchpenLive must be used within a SketchpenProvider');
+    throw new Error('useSketchboardLive must be used within a SketchboardProvider');
   }
   return context;
 }

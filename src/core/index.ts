@@ -1,10 +1,10 @@
-export { SketchpenLive } from './SketchpenLive';
+export { SketchboardLive } from './SketchboardLive';
 export type {
-  SketchpenOptions,
-  SketchpenState,
+  SketchboardOptions,
+  SketchboardState,
   Segment,
   AudioData,
-} from './SketchpenLive';
+} from './SketchboardLive';
 export type { AudioEncoding } from './types';
 export { buildActionSchedule, type ScheduledAction } from './timeline-scheduler';
-export { validateSegment, SketchpenValidationError, SketchpenRuntimeError, type ValidationIssue, type ValidationErrorCode, type RuntimeErrorCode, type SketchpenRuntimeErrorContext, type SketchpenError } from './validate';
+export { validateSegment, SketchboardValidationError, SketchboardRuntimeError, type ValidationIssue, type ValidationErrorCode, type RuntimeErrorCode, type SketchboardRuntimeErrorContext, type SketchboardError } from './validate';

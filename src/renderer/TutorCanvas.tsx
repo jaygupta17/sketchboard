@@ -147,7 +147,7 @@ function CanvasInner() {
             onClick={() => rfInstance.zoomOut({ duration: 180 })}
             aria-label="Zoom out"
             title="Zoom out"
-            className="sketchpen-zoom-btn"
+            className="sketchboard-zoom-btn"
           >
             -
           </button>
@@ -156,7 +156,7 @@ function CanvasInner() {
             onClick={() => rfInstance.zoomIn({ duration: 180 })}
             aria-label="Zoom in"
             title="Zoom in"
-            className="sketchpen-zoom-btn"
+            className="sketchboard-zoom-btn"
           >
             +
           </button>
@@ -165,7 +165,7 @@ function CanvasInner() {
             onClick={handleResetZoom}
             aria-label="Reset zoom"
             title="Reset zoom"
-            className="sketchpen-zoom-btn sketchpen-zoom-btn-reset"
+            className="sketchboard-zoom-btn sketchboard-zoom-btn-reset"
           >
             Reset
           </button>

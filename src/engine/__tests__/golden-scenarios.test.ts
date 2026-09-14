@@ -2,10 +2,10 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { ActionExecutor } from '../action-executor';
 import type { Action, CreateBlockAction, CustomAction, HighlightAction } from '../types';
 import { resetIdCounter } from '../utils';
-import { validateSegment, SketchpenValidationError, SketchpenRuntimeError } from '../../core/validate';
+import { validateSegment, SketchboardValidationError, SketchboardRuntimeError } from '../../core/validate';
 import { buildActionSchedule } from '../../core/timeline-scheduler';
 import { compileAction } from '../compiler';
-import type { Segment } from '../../core/SketchpenLive';
+import type { Segment } from '../../core/SketchboardLive';
 
 describe('Golden Integration Scenarios', () => {
   let executor: ActionExecutor;

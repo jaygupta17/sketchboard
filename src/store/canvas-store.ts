@@ -7,7 +7,7 @@
 import { create } from 'zustand';
 import type { ResolvedNode } from '../engine/types';
 import type { Renderers, Theme } from '../actions';
-import type { SketchpenRuntimeErrorContext } from '../core/validate';
+import type { SketchboardRuntimeErrorContext } from '../core/validate';
 
 export interface Viewport {
   x: number;
@@ -16,7 +16,7 @@ export interface Viewport {
 }
 
 export interface CanvasError {
-  code: SketchpenRuntimeErrorContext['code'];
+  code: SketchboardRuntimeErrorContext['code'];
   message: string;
   nodeId?: string;
   rendererKey?: string;

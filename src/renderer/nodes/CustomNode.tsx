@@ -53,7 +53,7 @@ export function CustomNode({ data, id }: NodeProps) {
         <Handle type="target" position={Position.Top} style={{ opacity: 0 }} />
         <div style={{ fontWeight: 700, marginBottom: 6 }}>Missing custom renderer</div>
         <div style={{ marginBottom: 4 }}><code>{content.renderer}</code></div>
-        <div style={{ opacity: 0.8 }}>Register it via <code>SketchpenProvider renderers</code>.</div>
+        <div style={{ opacity: 0.8 }}>Register it via <code>SketchboardProvider renderers</code>.</div>
         <Handle type="source" position={Position.Bottom} style={{ opacity: 0 }} />
       </div>
     );

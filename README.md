@@ -1,10 +1,10 @@
-# @sketchpen/core
+# sketchboard
 
 <div align="center">
 
 **An open-source engine that lets AI agents create interactive, audio-synced whiteboard explanations, no spatial reasoning required.**
 
-[![npm version](https://img.shields.io/npm/v/@sketchpen/core.svg)](https://www.npmjs.com/package/@sketchpen/core)
+[![npm version](https://img.shields.io/npm/v/sketchboard.svg)](https://www.npmjs.com/package/sketchboard)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](#)
 
@@ -21,7 +21,7 @@ LLMs are great at generating text. But when you ask them to "draw a diagram" or 
 - **No animation**: revealing content step-by-step requires complex state management
 - **No extensibility**: existing tools lock you into their built-in visualizations
 
-**@sketchpen/core solves all of this.** Give your AI a semantic action DSL, and the library handles layout, collision, animation, camera, and audio sync automatically.
+**Sketchboard solves all of this.** Give your AI a semantic action DSL, and the library handles layout, collision, animation, camera, and audio sync automatically.
 
 ## Key Features
 
@@ -41,7 +41,7 @@ LLMs are great at generating text. But when you ask them to "draw a diagram" or 
 ### Install
 
 ```bash
-npm install @sketchpen/core
+npm install sketchboard
 ```
 
 **Peer dependencies:**
@@ -54,10 +54,10 @@ npm install @sketchpen/core
 ```tsx
 'use client';
 
-import { SketchpenProvider, TutorCanvas, useSketchpenLive } from '@sketchpen/core';
+import { SketchboardProvider, TutorCanvas, useSketchboardLive } from 'sketchboard';
 
 function LessonControls() {
-  const { play, resume } = useSketchpenLive();
+  const { play, resume } = useSketchboardLive();
 
   const runLesson = async () => {
     resume();
@@ -107,12 +107,12 @@ function LessonControls() {
 
 export default function Page() {
   return (
-    <SketchpenProvider>
+    <SketchboardProvider>
       <div style={{ width: '100%', height: '600px' }}>
         <TutorCanvas />
       </div>
       <LessonControls />
-    </SketchpenProvider>
+    </SketchboardProvider>
   );
 }
 ```
@@ -189,7 +189,7 @@ Custom actions are first-class citizens: they go through the same layout, collis
 ### Defining a Custom Action
 
 ```ts
-import type { Action } from '@sketchpen/core';
+import type { Action } from 'sketchboard';
 
 const stepSolverAction: Action = {
   type: 'custom',
@@ -227,7 +227,7 @@ size: { width: 600, height: 400 }
 ### Registering Custom Renderers
 
 ```tsx
-import type { Renderers, RendererComponent } from '@sketchpen/core';
+import type { Renderers, RendererComponent } from 'sketchboard';
 
 const StepSolverRenderer: RendererComponent = ({ data, reveal, controls }) => {
   const payload = data as {
@@ -261,9 +261,9 @@ const renderers: Renderers = {
 };
 
 // Register with provider
-<SketchpenProvider renderers={renderers}>
+<SketchboardProvider renderers={renderers}>
   <TutorCanvas />
-</SketchpenProvider>
+</SketchboardProvider>
 ```
 
 If a renderer key is missing, the canvas shows a non-fatal fallback node.
@@ -354,12 +354,12 @@ interface ManualRevealControls {
 Full theme support with light/dark modes:
 
 ```tsx
-import { SketchpenProvider, lightTheme, darkTheme, createTheme } from '@sketchpen/core';
+import { SketchboardProvider, lightTheme, darkTheme, createTheme } from 'sketchboard';
 
 // Use built-in themes
-<SketchpenProvider theme={darkTheme}>
+<SketchboardProvider theme={darkTheme}>
   <TutorCanvas />
-</SketchpenProvider>
+</SketchboardProvider>
 
 // Create custom theme
 const myTheme = createTheme({
@@ -370,9 +370,9 @@ const myTheme = createTheme({
   },
 });
 
-<SketchpenProvider theme={myTheme}>
+<SketchboardProvider theme={myTheme}>
   <TutorCanvas />
-</SketchpenProvider>
+</SketchboardProvider>
 ```
 
 ### Theme Tokens
@@ -414,24 +414,24 @@ interface ThemeTokens {
 
 ```ts
 import {
-  SketchpenLive,        // Headless runtime for non-React environments
+  SketchboardLive,        // Headless runtime for non-React environments
   buildActionSchedule,   // Compute timing from sync modes
   validateSegment,       // Validate input with typed error codes
-  SketchpenValidationError,
-  SketchpenRuntimeError,
-} from '@sketchpen/core';
+  SketchboardValidationError,
+  SketchboardRuntimeError,
+} from 'sketchboard';
 ```
 
 ### React
 
 ```ts
 import {
-  SketchpenProvider,     // Provider with theme, renderers, audio
+  SketchboardProvider,     // Provider with theme, renderers, audio
   TutorCanvas,           // React Flow canvas component
-  useSketchpenLive,      // Playback controls hook
+  useSketchboardLive,      // Playback controls hook
   useCanvasStore,        // Low-level state access
   useReveal,             // Reveal animation hook (for custom nodes)
-} from '@sketchpen/core';
+} from 'sketchboard';
 ```
 
 ### Engine
@@ -442,7 +442,7 @@ import {
   layoutNode,            // Compute position from semantic reference
   computeAnimationPlan,  // Generate animation timing
   validateSegment,       // Schema + runtime validation
-} from '@sketchpen/core';
+} from 'sketchboard';
 ```
 
 ### JSON Schemas (for Agent Integration)
@@ -450,7 +450,7 @@ import {
 Validate agent outputs before rendering:
 
 ```ts
-import { actionJsonSchema, segmentJsonSchema } from '@sketchpen/core';
+import { actionJsonSchema, segmentJsonSchema } from 'sketchboard';
 
 // Use with ajv, zod, or any JSON schema validator
 import Ajv from 'ajv';
@@ -562,8 +562,8 @@ MIT, see [LICENSE](LICENSE).
 
 <div align="center">
 
-**Built by [Jay Gupta](https://github.com/jaygupta17), powered by [Sketchpen](https://sketchpen.app)**
+**Built by [Jay Gupta](https://github.com/jaygupta17)**
 
-[Website](https://sketchpen.app) · [X](https://x.com/guptajay19) · [GitHub](https://github.com/jaygupta17/sketchpen-core)
+[X](https://x.com/guptajay19) · [GitHub](https://github.com/jaygupta17/sketchboard)
 
 </div>

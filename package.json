@@ -1,5 +1,5 @@
 {
-  "name": "@sketchpen/core",
+  "name": "sketchboard",
   "type": "module",
   "version": "0.1.0",
   "description": "Semantic action DSL and deterministic layout engine for AI-generated, audio-synced whiteboard lessons",
@@ -15,13 +15,13 @@
     "education"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/jaygupta17/sketchpen-core#readme",
+  "homepage": "https://github.com/jaygupta17/sketchboard#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jaygupta17/sketchpen-core.git"
+    "url": "git+https://github.com/jaygupta17/sketchboard.git"
   },
   "bugs": {
-    "url": "https://github.com/jaygupta17/sketchpen-core/issues"
+    "url": "https://github.com/jaygupta17/sketchboard/issues"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
