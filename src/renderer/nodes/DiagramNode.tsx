@@ -10,6 +10,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Handle, Position, type NodeProps } from '@xyflow/react';
 import rough from 'roughjs';
 import type { DiagramContent, AnimationPlan } from '../../engine/types';
+import { evaluateExpression } from '../expression';
 import { useReveal } from '../reveal/useReveal';
 import { useCanvasStore } from '../../store/canvas-store';
 import { lightTheme } from '../../theme/default';
@@ -198,6 +199,8 @@ function drawCartesian(
     }
     if (points.length > 1) {
       svg.appendChild(rc.curve(points, { roughness: 0.6, stroke: color, strokeWidth: 2 }));
+    } else if (fn.expression) {
+      console.warn(`[sketchboard] No plottable points for function "${fn.expression}"`);
     }
     if (fn.label) {
       const mid = points[Math.floor(points.length / 2)];
@@ -409,20 +412,4 @@ function addLabel(
   el.setAttribute('text-anchor', anchor);
   el.textContent = text;
   svg.appendChild(el);
-}
-
-function evaluateExpression(expr: string, x: number): number {
-  const sanitized = expr
-    .replace(/\^/g, '**')
-    .replace(/sin/g, 'Math.sin')
-    .replace(/cos/g, 'Math.cos')
-    .replace(/tan/g, 'Math.tan')
-    .replace(/sqrt/g, 'Math.sqrt')
-    .replace(/abs/g, 'Math.abs')
-    .replace(/log/g, 'Math.log')
-    .replace(/exp/g, 'Math.exp')
-    .replace(/pi/g, 'Math.PI')
-    .replace(/e(?![x])/g, 'Math.E');
-  // eslint-disable-next-line no-new-func
-  return new Function('x', `return ${sanitized}`)(x);
 }
