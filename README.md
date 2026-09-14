@@ -12,6 +12,12 @@
 
 ---
 
+![A lesson rendered from semantic actions only](./docs/demo.png)
+
+*A lesson rendered purely from semantic actions: no coordinates, no layout code.*
+
+---
+
 ## The Problem
 
 LLMs are great at generating text. But when you ask them to "draw a diagram" or "create an interactive explanation," they struggle:
