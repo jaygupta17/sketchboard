@@ -24,7 +24,7 @@ export function evaluateExpression(expr: string, x: number): number {
   s = s.replace(/\)x/g, ')*x');
   s = s.replace(/x\(/g, 'x*(');
 
-  const stripped = s.replace(/Math\.(sin|cos|tan|sqrt|abs|log|exp|PI|E)/g, 'M');
+  const stripped = s.replace(/Math\.(sin|cos|tan|sqrt|abs|log|exp|PI|E)/g, '');
   if (/[a-zA-Z_$]/.test(stripped.replace(/x/g, ''))) {
     throw new Error(`Unsupported token in expression: ${expr}`);
   }
